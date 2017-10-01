@@ -6,7 +6,6 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router, Switch } from 'react-router-dom';
 import 'simple-line-icons/css/simple-line-icons.css';
-import App from './App';
 // Containers
 import Full from './containers/Full';
 
@@ -28,10 +27,4 @@ let html = (
 
 ReactDOM.render(html, rootTag);
 
-registerServiceWorker();
-
-ReactDOM.render(
-    <App/>,
-    document.getElementById('root') as HTMLElement
-);
 registerServiceWorker();

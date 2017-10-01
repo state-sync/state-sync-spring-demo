@@ -1,12 +1,27 @@
 import { StateSync } from '@state-sync/js-client';
+import { LinearComponentProps } from 'react-chartjs-2';
 
 export interface DashboardState {
-    watch: boolean;
+    settings: {
+        watch: boolean;
+    };
+    name?: string;
+    chart1: LinearComponentProps;
 }
 
+export const AREA_DASHBOARD = 'dasboard';
+
 const initialState: DashboardState = {
-    watch: true
+    settings: {
+        watch: true
+    },
+    chart1: {
+        data: {
+            labels: [],
+            datasets: []
+        }
+    }
 };
 
-export const dashboardReducer = StateSync().declareArea('dashboard', initialState);
+export const dashboardReducer = StateSync().declareArea(AREA_DASHBOARD, initialState);
 

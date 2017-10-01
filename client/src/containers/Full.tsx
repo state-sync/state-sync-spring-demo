@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import Breadcrumb from '../components/Breadcrumb';
+import Header from '../components/Header/Header';
+import Sidebar from '../components/Sidebar/Sidebar';
+// import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import Aside from '../components/Aside/Aside';
 import Footer from '../components/Footer/Footer';
 
@@ -17,7 +17,7 @@ class Full extends React.Component {
                 <div className="app-body">
                     <Sidebar {...this.props}/>
                     <main className="main">
-                        <Breadcrumb/>
+                        {/*<Breadcrumb/>*/}
                         <Container fluid={true}>
                             <Switch>
                                 <Route path="/dashboard" component={Dashboard}/>
