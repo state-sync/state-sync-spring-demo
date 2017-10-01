@@ -3,21 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@state-sync/js-client": "^0.0.5",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "reactstrap": "^4.8.0",
     "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "styles": "node-sass --watch --output public --source-map true scss/style.scss"
   },
   "devDependencies": {
-    "react-scripts-ts": "2.7.0",
     "@types/jest": "^21.1.1",
     "@types/node": "^8.0.31",
     "@types/react": "^16.0.7",
-    "@types/react-dom": "^15.5.5"
+    "@types/react-dom": "^15.5.5",
+    "react-scripts-ts": "2.7.0"
   }
 }
