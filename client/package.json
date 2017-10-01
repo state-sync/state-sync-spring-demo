@@ -5,7 +5,7 @@
   "dependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-scripts-ts": "2.7.0"
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -14,6 +14,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "react-scripts-ts": "2.7.0",
     "@types/jest": "^21.1.1",
     "@types/node": "^8.0.31",
     "@types/react": "^16.0.7",
