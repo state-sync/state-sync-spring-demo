@@ -4,10 +4,19 @@
   "private": true,
   "dependencies": {
     "@state-sync/js-client": "^0.0.5",
+    "@types/react-redux": "^5.0.9",
+    "@types/react-router-dom": "^4.0.8",
+    "font-awesome": "^4.7.0",
+    "history": "^4.7.2",
+    "rambdax": "^0.6.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-transition-group": "^2.2.1",
     "reactstrap": "^4.8.0",
-    "redux": "^3.7.2"
+    "redux-devtools-extension": "^2.13.2",
+    "simple-line-icons": "^2.4.1"
   },
   "scripts": {
     "start": "react-scripts-ts start",

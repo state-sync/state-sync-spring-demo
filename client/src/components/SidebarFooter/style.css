@@ -1,0 +1,21 @@
+.connection-status {
+    font-size: 10px;
+    font-weight: bold;
+    color: #888;
+}
+
+.connection-status.connecting {
+    color: #f56f0f;
+}
+
+.connection-status.connected {
+    color: #00bf8f;
+}
+.sync-status {
+    font-size: 10px;
+    font-weight: bold;
+    color: transparent;
+}
+.sync-status.false {
+    color: #ff4500;
+}
