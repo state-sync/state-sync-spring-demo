@@ -1,20 +1,18 @@
+import 'font-awesome/css/font-awesome.min.css';
+import createBrowserHistory from 'history/createBrowserHistory';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
 import { Provider } from 'react-redux';
 import { Route, Router, Switch } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
-
-import 'font-awesome/css/font-awesome.min.css';
 import 'simple-line-icons/css/simple-line-icons.css';
-
+import App from './App';
 // Containers
 import Full from './containers/Full';
-import { store } from './store';
 
 import './index.css';
+import registerServiceWorker from './registerServiceWorker';
+import { store } from './store';
 
 const browserHistory = createBrowserHistory();
 
@@ -31,7 +29,7 @@ ReactDOM.render((
 registerServiceWorker();
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root') as HTMLElement
+    <App/>,
+    document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();

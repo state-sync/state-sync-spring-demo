@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@state-sync/js-client": "^0.0.5",
+    "@state-sync/js-client": "^0.0.6",
     "@types/react-redux": "^5.0.9",
     "@types/react-router-dom": "^4.0.8",
     "font-awesome": "^4.7.0",
