@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: dev
+
+api:
+  prefix: /api
+  version: /v1
+  base-path: ${api.prefix}${api.version}
+
+security:
+  oauth2:
+    client:
+      app: client_app
+      secret: client_secret
+    resource:
+      id: resourceId
+    securedUrl: ${api.base-path}/**
+
+auth:
+  admin:
+    email: admin
+    password: admin
+  demo:
+    email: demo
+    password: demo
