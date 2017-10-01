@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import Header from '../../components/Header/';
-import Sidebar from '../../components/Sidebar/';
-import Breadcrumb from '../../components/Breadcrumb/';
-import Aside from '../../components/Aside/';
-import Footer from '../../components/Footer/';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import Breadcrumb from '../components/Breadcrumb';
+import Aside from '../components/Aside/Aside';
+import Footer from '../components/Footer/Footer';
 
-import Dashboard from '../../views/Dashboard/';
-import Timetable from '../../views/Timetable/';
-import TrucksList from "../../views/TrucksList/TrucksList";
+import Dashboard from '../views/Dashboard/Dashboard';
 
-class Full extends Component {
+class Full extends React.Component {
     render() {
         return (
             <div className="app">
@@ -20,9 +18,9 @@ class Full extends Component {
                     <Sidebar {...this.props}/>
                     <main className="main">
                         <Breadcrumb/>
-                        <Container fluid>
+                        <Container fluid={true}>
                             <Switch>
-                                <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+                                <Route path="/dashboard" component={Dashboard}/>
                                 <Redirect from="/" to="/dashboard"/>
                             </Switch>
                         </Container>

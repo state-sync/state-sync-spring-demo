@@ -16,15 +16,17 @@ import { store } from './store';
 
 const browserHistory = createBrowserHistory();
 
-ReactDOM.render((
+let rootTag = document.getElementById('root');
+let html = (
     <Provider store={store}>
         <Router history={browserHistory}>
             <Switch>
                 <Route path="/" component={Full}/>
             </Switch>
         </Router>
-    </Provider>
-), document.getElementById('root'));
+    </Provider>);
+
+ReactDOM.render(html, rootTag);
 
 registerServiceWorker();
 

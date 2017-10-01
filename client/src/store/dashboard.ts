@@ -1,5 +1,12 @@
 import { StateSync } from '@state-sync/js-client';
 
-const initialState = {};
-export default StateSync().declareArea('dashboard', initialState);
+export interface DashboardState {
+    watch: boolean;
+}
+
+const initialState: DashboardState = {
+    watch: true
+};
+
+export const dashboardReducer = StateSync().declareArea('dashboard', initialState);
 

@@ -34,4 +34,4 @@ export default {
             hoverRadius: 4,
         },
     }
-}
+};
