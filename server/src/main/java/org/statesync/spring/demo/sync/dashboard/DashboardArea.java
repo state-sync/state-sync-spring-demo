@@ -24,7 +24,7 @@ public class DashboardArea extends SpringSyncArea<DashboardModel> {
 	}
 
 	@Override
-	protected DashboardModel process(final DashboardModel model, final SyncAreaUser user) {
+	protected DashboardModel process(final DashboardModel model, final SyncAreaUser<DashboardModel> user) {
 		model.name = "My dashboard";
 		fillChart(model);
 		return model;
@@ -33,11 +33,11 @@ public class DashboardArea extends SpringSyncArea<DashboardModel> {
 	@Scheduled(fixedRate = 5000)
 	public void updateByTimer() {
 		try {
-			this.getArea().sync((model, user) -> {
+			this.getArea().syncAll((model, user) -> {
 				if (model.settings.watch) {
 					fillChart(model);
 				}
-				return model.settings.watch;
+				return model;
 			});
 		} catch (final Exception e) {
 			e.printStackTrace();

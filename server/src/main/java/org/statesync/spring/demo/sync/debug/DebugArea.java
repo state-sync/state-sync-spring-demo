@@ -9,7 +9,7 @@ import org.statesync.spring.SyncAreaService;
 public class DebugArea extends SpringSyncArea<StateSyncInfoModel> {
 
 	@Override
-	protected StateSyncInfoModel process(final StateSyncInfoModel model, final SyncAreaUser user) {
+	protected StateSyncInfoModel process(final StateSyncInfoModel model, final SyncAreaUser<StateSyncInfoModel> user) {
 		model.info = this.service.getInfo();
 		return model;
 	}
@@ -17,9 +17,9 @@ public class DebugArea extends SpringSyncArea<StateSyncInfoModel> {
 	@Scheduled(fixedRate = 1000)
 	public void updateByTimer() {
 		try {
-			this.getArea().sync((model, user) -> {
+			this.getArea().syncAll((model, user) -> {
 				model.info = this.service.getInfo();
-				return true;
+				return model;
 			});
 		} catch (final Exception e) {
 			e.printStackTrace();
