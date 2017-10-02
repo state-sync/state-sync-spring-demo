@@ -35,6 +35,14 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
 };
 
 class DashboardComponent extends React.Component<MyProps> {
+    componentDidMount() {
+        area.subscribe();
+    }
+
+    componentWillUnmount() {
+        area.unsubscribe();
+    }
+
     render() {
         const {dashboard, handleClick} = this.props;
         let chart1 = dashboard.chart1 ? (
@@ -55,7 +63,8 @@ class DashboardComponent extends React.Component<MyProps> {
                             {chart1}
                         </Card>
                         <CardFooter>
-                            <Button onClick={() => handleClick()}>{dashboard.settings.watch ? 'Unwatch' : 'Watch'}</Button>
+                            <Button
+                                onClick={() => handleClick()}>{dashboard.settings.watch ? 'Unwatch' : 'Watch'}</Button>
                         </CardFooter>
                     </Col>
                 </Row>

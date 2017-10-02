@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@state-sync/js-client": "^0.0.13",
+    "@state-sync/js-client": "^0.0.18",
     "@types/classnames": "^2.2.3",
     "@types/react-chartjs-2": "^2.0.2",
     "@types/react-redux": "^5.0.9",

@@ -18,5 +18,4 @@ const composeEnhancers = composeWithDevTools({
 });
 
 export let store = createStore(reducers, composeEnhancers(applyMiddleware()));
-let sync = StateSync();
-sync.initSync(store, 'ws://localhost:8080/schedule');
+StateSync().initSync(store, 'ws://localhost:8080/state-sync');

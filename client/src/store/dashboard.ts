@@ -9,7 +9,7 @@ export interface DashboardState {
     chart1: LinearComponentProps;
 }
 
-export const AREA_DASHBOARD = 'dasboard';
+export const AREA_DASHBOARD = 'dashboard';
 
 const initialState: DashboardState = {
     settings: {
