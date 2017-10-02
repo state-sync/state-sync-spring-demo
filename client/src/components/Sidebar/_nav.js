@@ -8,6 +8,15 @@ export default {
                 variant: 'info',
                 text: 'NEW'
             }
+        },
+        {
+            name: 'Simple table',
+            url: '/table',
+            icon: 'icon-table',
+            badge: {
+                variant: 'warning',
+                text: 'COOL'
+            }
         }
     ]
 };

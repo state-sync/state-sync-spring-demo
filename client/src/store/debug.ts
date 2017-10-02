@@ -9,4 +9,3 @@ const initialState: DebugState = {
 };
 
 export const debugReducer = StateSync().declareArea(AREA_DEBUG, initialState);
-

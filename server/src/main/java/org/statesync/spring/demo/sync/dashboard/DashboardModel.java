@@ -7,4 +7,5 @@ public class DashboardModel {
 	public final DashboardSettings settings = new DashboardSettings();
 	public String name;
 	public LinearChart chart1 = new LinearChart();
+	public int membersOnline;
 }

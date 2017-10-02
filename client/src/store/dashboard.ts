@@ -6,6 +6,7 @@ export interface DashboardState {
         watch: boolean;
     };
     name?: string;
+    membersOnline: number;
     chart1: LinearComponentProps;
 }
 
@@ -15,6 +16,7 @@ const initialState: DashboardState = {
     settings: {
         watch: true
     },
+    membersOnline: 0,
     chart1: {
         data: {
             labels: [],

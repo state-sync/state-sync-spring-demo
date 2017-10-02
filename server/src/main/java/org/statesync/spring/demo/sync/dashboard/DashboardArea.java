@@ -21,6 +21,8 @@ public class DashboardArea extends SpringSyncArea<DashboardModel> {
 		model.chart1.data.datasets.get(0).backgroundColor = "#FF0";
 		data.add((double) new Random(System.currentTimeMillis()).nextInt(100));
 		model.chart1.data.datasets.get(0).data = Doubles.toArray(data);
+
+		model.membersOnline++;
 	}
 
 	@Override
