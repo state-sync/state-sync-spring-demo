@@ -3,14 +3,17 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { StateSync } from '@state-sync/js-client';
 
 import { dashboardReducer, DashboardState } from './dashboard';
+import { debugReducer, DebugState } from "./debug";
 
 let reducers = combineReducers({
     dashboard : dashboardReducer,
+    debug : debugReducer,
     syncStatus: StateSync().declareStatusArea()
 });
 
 export interface State {
     dashboard: DashboardState;
+    debug: DebugState;
 }
 
 const composeEnhancers = composeWithDevTools({

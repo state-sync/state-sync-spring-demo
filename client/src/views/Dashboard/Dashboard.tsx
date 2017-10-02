@@ -6,11 +6,14 @@ import { Button, Card, CardBlock, CardFooter, Col, Row } from 'reactstrap';
 import { AREA_DASHBOARD, DashboardState } from '../../store/dashboard';
 import { State } from '../../store/index';
 import chart1Options from './chart1Options';
+import { AREA_DEBUG, DebugState } from '../../store/debug';
 
 const area = StateSync().area(AREA_DASHBOARD);
+const debugArea = StateSync().area(AREA_DEBUG);
 
 interface StateFromProps {
     dashboard: DashboardState;
+    debug: DebugState;
 }
 
 interface DispatchFromProps {
@@ -22,7 +25,8 @@ interface MyProps extends StateFromProps, DispatchFromProps {
 
 const mapStateToProps = (state: State) => {
     return {
-        dashboard: JSON.parse(JSON.stringify(state.dashboard))
+        dashboard: JSON.parse(JSON.stringify(state.dashboard)),
+        debug: JSON.parse(JSON.stringify(state.debug))
     };
 };
 
@@ -37,6 +41,7 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
 class DashboardComponent extends React.Component<MyProps> {
     componentDidMount() {
         area.subscribe();
+        debugArea.subscribe();
     }
 
     componentWillUnmount() {
@@ -44,20 +49,20 @@ class DashboardComponent extends React.Component<MyProps> {
     }
 
     render() {
-        const {dashboard, handleClick} = this.props;
+        const {dashboard, debug, handleClick} = this.props;
         let chart1 = dashboard.chart1 ? (
-            <div className="chart-wrapper px-3" style={{height: '70px'}}>
+            <div className='chart-wrapper px-3' style={{height: '70px'}}>
                 <Line data={dashboard.chart1.data} options={chart1Options} height={70}/>
             </div>
         ) : '';
 
         return (
-            <div className="animated fadeIn">
+            <div className='animated fadeIn'>
                 <Row>
-                    <Col xs="12" sm="6" lg="3">
-                        <Card className="text-white bg-primary">
-                            <CardBlock className="card-body pb-0">
-                                <h4 className="mb-0">9.823</h4>
+                    <Col xs='12' sm='6' lg='3'>
+                        <Card className='text-white bg-primary'>
+                            <CardBlock className='card-body pb-0'>
+                                <h4 className='mb-0'>9.823</h4>
                                 <p>Members online</p>
                             </CardBlock>
                             {chart1}
@@ -70,6 +75,9 @@ class DashboardComponent extends React.Component<MyProps> {
                 </Row>
                 <h1>{dashboard.name}</h1>
                 <br/>
+                <pre>
+                    {JSON.stringify(debug, null, 2)};
+                </pre>
             </div>
         );
     }
