@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@state-sync/js-client@^0.0.18":
-  version "0.0.18"
-  resolved "https://registry.yarnpkg.com/@state-sync/js-client/-/js-client-0.0.18.tgz#ee38c5e890775b65787ca235c38c5305edf6aa19"
+"@state-sync/js-client@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@state-sync/js-client/-/js-client-0.0.19.tgz#3ab5c13ab739d282d3290bb63c754a54309646a8"
   dependencies:
     jiff "^0.7.3"
     jsonpatch "^3.0.1"
