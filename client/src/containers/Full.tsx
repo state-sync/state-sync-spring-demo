@@ -8,7 +8,7 @@ import Aside from '../components/Aside/Aside';
 import Footer from '../components/Footer/Footer';
 
 import Dashboard from '../views/Dashboard/Dashboard';
-import TasksTableComponent from '../views/Tasks/TasksTableComponent';
+import TasksComponent from '../views/Tasks/TasksComponent';
 
 class Full extends React.Component {
     render() {
@@ -22,7 +22,7 @@ class Full extends React.Component {
                         <Container fluid={true}>
                             <Switch>
                                 <Route path="/dashboard" component={Dashboard}/>
-                                <Route path="/tasks" component={TasksTableComponent}/>
+                                <Route path="/tasks" component={TasksComponent}/>
                                 <Redirect from="/" to="/dashboard"/>
                             </Switch>
                         </Container>

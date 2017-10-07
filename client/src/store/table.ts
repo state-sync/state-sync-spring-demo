@@ -5,21 +5,19 @@ import { ItemListPaginationSyncModelDefault } from '../models/ItemListPagination
 
 export interface TableItem {
     id: string;
-    name: string;
+    summary: string;
     status: string;
 }
 
-export interface TableState {
+export interface TasksState {
     query: ItemListQuery;
-    filter: string;
     items: ItemListSyncModel<TableItem>;
 }
 
-export const AREA_TABLE = 'table';
+export const AREA_TASKS = 'tasks';
 
-const initialState: TableState = {
+const initialState: TasksState = {
     query: ItemListQueryDefault,
-    filter: '',
     items: {
         data: [],
         permissions: {},
@@ -27,5 +25,5 @@ const initialState: TableState = {
     }
 };
 
-export const tableReducer = StateSync().declareArea(AREA_TABLE, initialState);
+export const tasksReducer = StateSync().declareArea(AREA_TASKS, initialState);
 

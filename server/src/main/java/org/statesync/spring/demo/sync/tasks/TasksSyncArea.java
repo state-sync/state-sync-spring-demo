@@ -11,7 +11,7 @@ import org.statesync.spring.SyncAreaService;
 import org.statesync.spring.demo.entity.Task;
 import org.statesync.spring.demo.service.TaskService;
 
-@SyncAreaService(id = "table", model = TasksModel.class, clientPush = { "/query", "/filter" })
+@SyncAreaService(id = "tasks", model = TasksModel.class, clientPush = { "/query" })
 public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 
 	private TaskService taskService;

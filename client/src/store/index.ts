@@ -4,11 +4,11 @@ import { StateSync } from '@state-sync/js-client';
 
 import { dashboardReducer, DashboardState } from './dashboard';
 import { debugReducer, DebugState } from './debug';
-import { tableReducer, TableState } from './table';
+import { tasksReducer, TasksState } from './table';
 
 let reducers = combineReducers({
     dashboard : dashboardReducer,
-    table : tableReducer,
+    tasks : tasksReducer,
     debug : debugReducer,
     syncStatus: StateSync().declareStatusArea()
 });
@@ -16,7 +16,7 @@ let reducers = combineReducers({
 export interface State {
     dashboard: DashboardState;
     debug: DebugState;
-    table: TableState;
+    tasks: TasksState;
 }
 
 const composeEnhancers = composeWithDevTools({

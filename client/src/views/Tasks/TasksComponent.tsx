@@ -3,12 +3,12 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Table } from 'reactstrap';
 import { State } from '../../store/index';
-import { AREA_TABLE, TableState } from '../../store/table';
+import { AREA_TASKS, TasksState } from '../../store/table';
 
-const area = StateSync().area(AREA_TABLE);
+const area = StateSync().area(AREA_TASKS);
 
 interface StateFromProps {
-    table: TableState;
+    tasks: TasksState;
 }
 
 interface DispatchFromProps {
@@ -19,7 +19,7 @@ interface CompProps extends StateFromProps, DispatchFromProps {
 
 const mapStateToProps = (state: State) => {
     return {
-        table: JSON.parse(JSON.stringify(state.table))
+        tasks: state.tasks
     };
 };
 
@@ -41,13 +41,13 @@ class Comp extends React.Component<CompProps> {
     }
 
     render() {
-        const {table} = this.props;
-        let rows = table.items.data.map((item, index: number) => {
+        const {tasks} = this.props;
+        let rows = tasks.items.data.map((item, index: number) => {
                 let data = item.data;
                 return (
                     <tr key={data.id}>
                         <td>{data.id}</td>
-                        <td>{data.name}</td>
+                        <td>{data.summary}</td>
                         <td>{data.status}</td>
                     </tr>
                 );
@@ -60,7 +60,7 @@ class Comp extends React.Component<CompProps> {
                     <thead>
                     <tr>
                         <th onClick={(e) => area.actionReplace('/query/sortBy', 'id')}>id</th>
-                        <th onClick={(e) => area.actionReplace('/query/sortBy', 'name')}>name</th>
+                        <th onClick={(e) => area.actionReplace('/query/sortBy', 'summary')}>summary</th>
                         <th onClick={(e) => area.actionReplace('/query/sortBy', 'status')}>status</th>
                     </tr>
                     </thead>
@@ -69,14 +69,14 @@ class Comp extends React.Component<CompProps> {
                     </tbody>
                 </Table>
                 <pre>
-                    {JSON.stringify(table, null, 2)};
+                    {JSON.stringify(tasks, null, 2)};
                 </pre>
             </div>
         );
     }
 }
 
-const TasksTableComponent
+const TasksComponent
     = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(Comp);
 
-export default TasksTableComponent;
+export default TasksComponent;
