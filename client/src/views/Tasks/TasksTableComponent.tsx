@@ -14,7 +14,7 @@ interface StateFromProps {
 interface DispatchFromProps {
 }
 
-interface MyProps extends StateFromProps, DispatchFromProps {
+interface CompProps extends StateFromProps, DispatchFromProps {
 }
 
 const mapStateToProps = (state: State) => {
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
     };
 };
 
-class DashboardComponent extends React.Component<MyProps> {
+class Comp extends React.Component<CompProps> {
     componentDidMount() {
         area.subscribe();
     }
@@ -76,7 +76,7 @@ class DashboardComponent extends React.Component<MyProps> {
     }
 }
 
-const TableExample
-    = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(DashboardComponent);
+const TasksTableComponent
+    = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(Comp);
 
-export default TableExample;
+export default TasksTableComponent;

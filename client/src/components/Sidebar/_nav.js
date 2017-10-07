@@ -10,8 +10,8 @@ export default {
             }
         },
         {
-            name: 'Simple table',
-            url: '/table',
+            name: 'Tasks',
+            url: '/tasks',
             icon: 'icon-table',
             badge: {
                 variant: 'warning',

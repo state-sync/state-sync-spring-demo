@@ -5,6 +5,8 @@ import {
 } from 'reactstrap';
 import { MouseEvent } from 'react';
 
+import './style.css';
+
 interface Props {
 
 }
@@ -27,7 +29,7 @@ class Header extends React.Component<Props, State> {
     return (
       <header className="app-header navbar">
         <NavbarToggler className={'d-lg-none'} onClick={this.mobileSidebarToggle}>&#9776;</NavbarToggler>
-        <NavbarBrand href="#"></NavbarBrand>
+        <NavbarBrand href="#">state-sync</NavbarBrand>
         <NavbarToggler className="d-md-down-none mr-auto" onClick={this.sidebarMinimize}>&#9776;</NavbarToggler>
       </header>
     );

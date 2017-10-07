@@ -1,6 +1,7 @@
 package org.statesync.spring.demo.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 
 import lombok.Data;
 
@@ -11,11 +12,16 @@ import lombok.Data;
  *
  */
 @Data
-public class ToDo {
+public class Task {
 
 	/**
 	 * Unique id of stay sync area
 	 */
 	@Id
-	private String id;
+	public String id;
+
+	@TextIndexed
+	public String summary;
+
+	public TaskStatus status;
 }
