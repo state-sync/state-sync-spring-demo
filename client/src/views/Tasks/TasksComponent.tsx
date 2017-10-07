@@ -42,6 +42,12 @@ class Comp extends React.Component<CompProps> {
 
     render() {
         const {tasks} = this.props;
+        let sortIcon = (col: string) => {
+            return col === tasks.query.sortBy ?
+                (<i className="fa fa-sort-asc" aria-hidden="true"/>) :
+                ('');
+        };
+
         let rows = tasks.items.data.map((item, index: number) => {
                 let data = item.data;
                 return (
@@ -68,11 +74,16 @@ class Comp extends React.Component<CompProps> {
                                     <Table>
                                         <thead>
                                         <tr>
-                                            <th onClick={(e) => area.actionReplace('/query/sortBy', 'id')}>id</th>
+                                            <th onClick={(e) => area.actionReplace('/query/sortBy', 'id')}>id
+                                                {sortIcon('id')}
+                                            </th>
                                             <th onClick={(e) => area.actionReplace('/query/sortBy', 'summary')}>
                                                 summary
+                                                {sortIcon('summary')}
                                             </th>
-                                            <th onClick={(e) => area.actionReplace('/query/sortBy', 'status')}>status
+                                            <th onClick={(e) => area.actionReplace('/query/sortBy', 'status')}>
+                                                status
+                                                {sortIcon('status')}
                                             </th>
                                         </tr>
                                         </thead>
