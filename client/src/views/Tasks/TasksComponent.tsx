@@ -4,6 +4,7 @@ import { connect, Dispatch } from 'react-redux';
 import { Card, CardBlock, CardFooter, CardHeader, Pagination, PaginationLink, Table } from 'reactstrap';
 import { State } from '../../store/index';
 import { AREA_TASKS, TasksState } from '../../store/table';
+import { ColSortIcon } from '../../components/Table/ColSortIcon';
 
 const area = StateSync().area(AREA_TASKS);
 
@@ -42,10 +43,19 @@ class Comp extends React.Component<CompProps> {
 
     render() {
         const {tasks} = this.props;
-        let sortIcon = (col: string) => {
-            return col === tasks.query.sortBy ?
-                (<i className="fa fa-sort-asc" aria-hidden="true"/>) :
-                ('');
+        const query = tasks.query;
+
+        const sort = (col: string) => (e: React.MouseEvent<HTMLElement>): void => {
+            area.actionReplace('/query/sortBy', col);
+            area.actionReduce('/query', (state: any) => {
+                return {
+                    ...state,
+                    sortBy : col,
+                    sortDirection : col === state.sortBy ?
+                        state.sortDirection === 'asc' ? 'desc' : 'asc':
+                        'asc'
+                };
+            });
         };
 
         let rows = tasks.items.data.map((item, index: number) => {
@@ -65,7 +75,7 @@ class Comp extends React.Component<CompProps> {
                 <br/>
                 <div className="animated fadeIn">
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-8">
                             <Card>
                                 <CardHeader>
                                     Tasks
@@ -74,16 +84,16 @@ class Comp extends React.Component<CompProps> {
                                     <Table>
                                         <thead>
                                         <tr>
-                                            <th onClick={(e) => area.actionReplace('/query/sortBy', 'id')}>id
-                                                {sortIcon('id')}
+                                            <th className="gridHeader" onClick={sort('id')}>id
+                                                <ColSortIcon query={query} forId="id"/>
                                             </th>
-                                            <th onClick={(e) => area.actionReplace('/query/sortBy', 'summary')}>
+                                            <th className="gridHeader" onClick={sort('summary')}>
                                                 summary
-                                                {sortIcon('summary')}
+                                                <ColSortIcon query={query} forId="summary"/>
                                             </th>
-                                            <th onClick={(e) => area.actionReplace('/query/sortBy', 'status')}>
+                                            <th className="gridHeader" onClick={sort('status')}>
                                                 status
-                                                {sortIcon('status')}
+                                                <ColSortIcon query={query} forId="status"/>
                                             </th>
                                         </tr>
                                         </thead>
@@ -99,7 +109,7 @@ class Comp extends React.Component<CompProps> {
                                 </CardFooter>
                             </Card>
                         </div>
-                        <div className="col-6">
+                        <div className="col-4">
                             <Card>
                                 <CardHeader>
                                     New task
@@ -112,7 +122,7 @@ class Comp extends React.Component<CompProps> {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-12">
+                        <div className="col-4">
                             <Card>
                                 <CardHeader>
                                     Area model

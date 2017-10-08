@@ -16,6 +16,8 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 
 	private TaskService taskService;
 
+	private int generated = 0;
+
 	@Autowired
 	public TasksSyncArea(final TaskService taskService) {
 		this.taskService = taskService;
@@ -23,8 +25,7 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 
 	@Override
 	protected TasksModel process(final TasksModel model, final SyncAreaUser<TasksModel> user) {
-		model.query.validate();
-
+		model.query.validate("summary");
 		final Page<Task> page = this.taskService.find(model.query);
 		model.items = new AnnotatedList<>();
 		model.items.setData(page.getContent(), rec -> new TaskRow(rec));
@@ -35,8 +36,11 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 	@Scheduled(fixedRate = 5000)
 	public void updateByTimer() {
 		try {
-			this.taskService.newTask();
-			this.getArea().syncAll();
+			if (this.generated < 400) {
+				this.generated++;
+				this.taskService.newTask();
+				this.getArea().syncAll();
+			}
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}

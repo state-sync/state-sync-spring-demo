@@ -8736,4 +8736,8 @@ hr.transparent {
   right: 0;
   left: auto; }
 
+.gridHeader {
+  white-space: nowrap;
+  cursor: pointer; }
+
 /*# sourceMappingURL=style.css.map */

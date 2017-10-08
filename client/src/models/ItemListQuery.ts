@@ -13,11 +13,11 @@ export interface ItemListQuery {
     /**
      * sort by column
      */
-    sortOrder: 'asc' | 'desc';
+    sortDirection: 'asc' | 'desc';
 }
 
 export const ItemListQueryDefault: ItemListQuery = {
     search: '',
     sortBy: '',
-    sortOrder: 'asc'
+    sortDirection: 'asc'
 };
