@@ -9,7 +9,6 @@ interface Props {
 export class ColSortIcon extends React.Component<Props> {
     render(): JSX.Element {
         const {query, forId} = this.props;
-
         if (forId === query.sortBy) {
             if (query.sortDirection === 'asc') {
                 return (<i className="fa fa-sort-asc" aria-hidden="true"/>);
