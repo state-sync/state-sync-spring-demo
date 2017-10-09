@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ItemListQuery } from '../../models/ItemListQuery'
+import { ItemListQuery } from '../../models/ItemListQuery';
 
 interface Props {
     query: ItemListQuery;
