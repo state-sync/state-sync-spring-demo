@@ -1,10 +1,10 @@
 import { StateSync } from '@state-sync/js-client';
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, CardBlock, CardFooter, CardHeader, Pagination, PaginationLink, Table } from 'reactstrap';
+import { Card, CardBlock, CardFooter, CardHeader, Input, Pagination, PaginationLink, Table } from 'reactstrap';
+import { ColSortIcon } from '../../components/Table/ColSortIcon';
 import { State } from '../../store/index';
 import { AREA_TASKS, TasksState } from '../../store/table';
-import { ColSortIcon } from '../../components/Table/ColSortIcon';
 
 const area = StateSync().area(AREA_TASKS);
 
@@ -50,9 +50,9 @@ class Comp extends React.Component<CompProps> {
             area.actionReduce('/query', (state: any) => {
                 return {
                     ...state,
-                    sortBy : col,
-                    sortDirection : col === state.sortBy ?
-                        state.sortDirection === 'asc' ? 'desc' : 'asc':
+                    sortBy: col,
+                    sortDirection: col === state.sortBy ?
+                        state.sortDirection === 'asc' ? 'desc' : 'asc' :
                         'asc'
                 };
             });
@@ -78,7 +78,13 @@ class Comp extends React.Component<CompProps> {
                         <div className="col-8">
                             <Card>
                                 <CardHeader>
-                                    Tasks
+                                    <div className="row">
+                                        <div className="col-8">Tasks</div>
+                                        <div className="col-4">
+                                            <Input value={query.search}
+                                                   onChange={(e) => area.actionReplace('/query/search', e.target.value)}/>
+                                        </div>
+                                    </div>
                                 </CardHeader>
                                 <CardBlock>
                                     <Table>
@@ -140,6 +146,9 @@ class Comp extends React.Component<CompProps> {
 }
 
 const TasksComponent
-    = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(Comp);
+    = connect
+    < StateFromProps, DispatchFromProps
+>
+(mapStateToProps, mapDispatchToProps)(Comp);
 
 export default TasksComponent;
