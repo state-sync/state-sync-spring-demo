@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 import org.statesync.model.ListQuery;
 import org.statesync.spring.demo.entity.Task;
@@ -28,8 +27,9 @@ public class TaskService extends BaseService<String, Task, TaskRepository> {
 		if (StringUtils.isBlank(query.search)) {
 			return repository().findBy(pageable);
 		} else {
-			final TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(query.searchKeywords());
-			return repository().findBy(criteria, pageable);
+			// final TextCriteria criteria =
+			// TextCriteria.forDefaultLanguage().matchingAny(query.searchKeywords());
+			return repository().findBySummaryStartsWith(query.search, pageable);
 		}
 	}
 

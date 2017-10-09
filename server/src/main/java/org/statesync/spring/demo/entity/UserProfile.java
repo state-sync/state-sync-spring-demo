@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
@@ -14,6 +15,7 @@ import lombok.Data;
  * @author ify
  *
  */
+@Document
 @Data
 public class UserProfile {
 

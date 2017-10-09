@@ -14,4 +14,6 @@ public interface TaskRepository extends MongoRepository<Task, String> {
 
 	Page<Task> findBy(TextCriteria criteria, Pageable pageable);
 
+	Page<Task> findBySummaryStartsWith(String summary, Pageable pageable);
+
 }
