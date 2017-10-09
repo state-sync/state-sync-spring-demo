@@ -29,8 +29,7 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 		// if (model.newTask.validate()) {
 		this.taskService.newTask(model.newTask.summary);
 		model.newTask.success();
-		// }
-		return process(model, user);
+		return model;
 	}
 
 	@Override
