@@ -8740,4 +8740,9 @@ hr.transparent {
   white-space: nowrap;
   cursor: pointer; }
 
+.input-search {
+  margin: -6px;
+  margin-right: -20px;
+  font-size: 14px; }
+
 /*# sourceMappingURL=style.css.map */

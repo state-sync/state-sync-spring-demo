@@ -11,7 +11,7 @@ export default [
     {
         name: 'Tasks',
         url: '/tasks',
-        icon: 'icon-table',
+        icon: 'icon-list',
         badge: {
             variant: 'warning',
             text: 'COOL'

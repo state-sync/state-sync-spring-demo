@@ -17,7 +17,7 @@ interface StateFromProps {
 interface DispatchFromProps {
     bindSearch: React.ChangeEventHandler<HTMLInputElement>;
     bindNewTaskSummary: React.ChangeEventHandler<HTMLInputElement>;
-    createTask: React.MouseEventHandler<HTMLElement>;
+    createTask: React.EventHandler<any>;
 }
 
 interface CompProps extends StateFromProps, DispatchFromProps {
@@ -77,7 +77,7 @@ class Comp extends React.Component<CompProps> {
                                     <div className="row">
                                         <div className="col-8">Tasks</div>
                                         <div className="col-4">
-                                            <Input value={query.search} onChange={bindSearch}/>
+                                            <Input size="sm" className="input-search" placeholder="Search..." value={query.search} onChange={bindSearch}/>
                                         </div>
                                     </div>
                                 </CardHeader>
@@ -111,6 +111,7 @@ class Comp extends React.Component<CompProps> {
                             </Card>
                         </div>
                         <div className="col-4">
+                            <form onSubmit={createTask}>
                             <Card>
                                 <CardHeader>
                                     New task
@@ -122,9 +123,10 @@ class Comp extends React.Component<CompProps> {
                                     </FormGroup>
                                 </CardBlock>
                                 <CardFooter>
-                                    <Button onClick={createTask}>Create</Button>
+                                    <Button type="submit" onClick={createTask}>Create</Button>
                                 </CardFooter>
                             </Card>
+                            </form>
                         </div>
                     </div>
                     <div className="row">
