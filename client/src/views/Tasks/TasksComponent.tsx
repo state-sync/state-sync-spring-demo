@@ -1,10 +1,12 @@
 import { StateSync } from '@state-sync/js-client';
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, CardBlock, CardFooter, CardHeader, Input, Pagination, PaginationLink, Table } from 'reactstrap';
+import { Button, FormGroup, Label, Card, CardBlock, CardFooter, CardHeader, Input, Pagination, PaginationLink, Table } from 'reactstrap';
 import { ColSortIcon } from '../../components/Table/ColSortIcon';
 import { State } from '../../store/index';
-import { AREA_TASKS, TasksState } from '../../store/table';
+import { AREA_TASKS, TasksState } from '../../store/tasks';
+import { SyncStateBind } from '../../utils/bind';
+import { SetSort } from '../../models/ItemListQuery';
 
 const area = StateSync().area(AREA_TASKS);
 
@@ -13,6 +15,9 @@ interface StateFromProps {
 }
 
 interface DispatchFromProps {
+    bindSearch: React.ChangeEventHandler<HTMLInputElement>;
+    bindNewTaskSummary: React.ChangeEventHandler<HTMLInputElement>;
+    createTask: React.MouseEventHandler<HTMLElement>;
 }
 
 interface CompProps extends StateFromProps, DispatchFromProps {
@@ -26,9 +31,9 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
     return {
-        handleClick: () => {
-            area.actionToggle('/settings/watch');
-        }
+        bindSearch: SyncStateBind.bind(area, '/query/search'),
+        bindNewTaskSummary: SyncStateBind.bind(area, '/newTask/summary'),
+        createTask: SyncStateBind.signal(area, 'createTask')
     };
 };
 
@@ -42,20 +47,11 @@ class Comp extends React.Component<CompProps> {
     }
 
     render() {
-        const {tasks} = this.props;
+        const {tasks, bindSearch, bindNewTaskSummary, createTask} = this.props;
         const query = tasks.query;
-
+        const newTask = tasks.newTask;
         const sort = (col: string) => (e: React.MouseEvent<HTMLElement>): void => {
-            area.actionReplace('/query/sortBy', col);
-            area.actionReduce('/query', (state: any) => {
-                return {
-                    ...state,
-                    sortBy: col,
-                    sortDirection: col === state.sortBy ?
-                        state.sortDirection === 'asc' ? 'desc' : 'asc' :
-                        'asc'
-                };
-            });
+            area.actionReduce('/query', SetSort(col));
         };
 
         let rows = tasks.items.data.map((item, index: number) => {
@@ -81,8 +77,7 @@ class Comp extends React.Component<CompProps> {
                                     <div className="row">
                                         <div className="col-8">Tasks</div>
                                         <div className="col-4">
-                                            <Input value={query.search}
-                                                   onChange={(e) => area.actionReplace('/query/search', e.target.value)}/>
+                                            <Input value={query.search} onChange={bindSearch}/>
                                         </div>
                                     </div>
                                 </CardHeader>
@@ -121,8 +116,13 @@ class Comp extends React.Component<CompProps> {
                                     New task
                                 </CardHeader>
                                 <CardBlock>
+                                    <FormGroup>
+                                        <Label htmlFor="name">Summary</Label>
+                                        <Input type="text" value={newTask.summary} id="name" placeholder="Summary" onChange={bindNewTaskSummary}/>
+                                    </FormGroup>
                                 </CardBlock>
                                 <CardFooter>
+                                    <Button onClick={createTask}>Create</Button>
                                 </CardFooter>
                             </Card>
                         </div>

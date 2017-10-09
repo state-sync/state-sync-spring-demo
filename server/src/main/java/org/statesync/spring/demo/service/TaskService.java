@@ -40,4 +40,11 @@ public class TaskService extends BaseService<String, Task, TaskRepository> {
 		this.repository().save(task);
 	}
 
+	public void newTask(final String summary) {
+		final Task task = new Task();
+		task.status = TaskStatus.New;
+		task.summary = summary;
+		this.repository().save(task);
+	}
+
 }

@@ -22,7 +22,7 @@ export interface ItemListPaginationSyncModel {
      * Total count of pages
      */
     totalPages: number;
-};
+}
 
 export const ItemListPaginationSyncModelDefault: ItemListPaginationSyncModel = {
     offset: 0,

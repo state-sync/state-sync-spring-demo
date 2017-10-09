@@ -4,8 +4,7 @@
         "align": [
             true,
             "parameters",
-            "arguments",
-            "statements"
+            "arguments"
         ],
         "ban": false,
         "class-name": true,
@@ -22,14 +21,14 @@
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
         "label-position": true,
-        "max-line-length": [ true, 120 ],
+        "max-line-length": [ true, 300 ],
         "member-ordering": [
             true,
             "public-before-private",
             "static-before-instance",
             "variables-before-functions"
         ],
-        "no-any": true,
+        "no-any": false,
         "no-arg": true,
         "no-bitwise": true,
         "no-console": [

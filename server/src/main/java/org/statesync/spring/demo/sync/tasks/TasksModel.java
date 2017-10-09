@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class TasksModel {
-	public String filter;
 	public ListQuery query = new ListQuery();
+	public NewTaskForm newTask = new NewTaskForm();
 	public AnnotatedList<TaskRow> items = new AnnotatedList<>();
 }

@@ -8,10 +8,11 @@ import org.statesync.model.AnnotatedList;
 import org.statesync.model.Pagination;
 import org.statesync.spring.SpringSyncArea;
 import org.statesync.spring.SyncAreaService;
+import org.statesync.spring.SyncSignal;
 import org.statesync.spring.demo.entity.Task;
 import org.statesync.spring.demo.service.TaskService;
 
-@SyncAreaService(id = "tasks", model = TasksModel.class, clientPush = { "/query" })
+@SyncAreaService(id = "tasks", model = TasksModel.class, clientPush = { "/query", "/newTask" })
 public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 
 	private TaskService taskService;
@@ -21,6 +22,15 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 	@Autowired
 	public TasksSyncArea(final TaskService taskService) {
 		this.taskService = taskService;
+	}
+
+	@SyncSignal(name = "createTask")
+	public TasksModel createTask(final TasksModel model, final SyncAreaUser<TasksModel> user) {
+		// if (model.newTask.validate()) {
+		this.taskService.newTask(model.newTask.summary);
+		model.newTask.success();
+		// }
+		return process(model, user);
 	}
 
 	@Override

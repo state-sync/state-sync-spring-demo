@@ -26,4 +26,3 @@ const initialState: DashboardState = {
 };
 
 export const dashboardReducer = StateSync().declareArea(AREA_DASHBOARD, initialState);
-

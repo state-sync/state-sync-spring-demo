@@ -4,7 +4,7 @@ import { StateSync } from '@state-sync/js-client';
 
 import { dashboardReducer, DashboardState } from './dashboard';
 import { debugReducer, DebugState } from './debug';
-import { tasksReducer, TasksState } from './table';
+import { tasksReducer, TasksState } from './tasks';
 
 let reducers = combineReducers({
     dashboard : dashboardReducer,

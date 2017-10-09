@@ -5,9 +5,11 @@ import { Badge, Nav, NavItem } from 'reactstrap';
 // import SidebarFooter from '../SidebarFooter/SidebarFooter';
 import SidebarForm from '../SidebarForm/SidebarForm';
 import SidebarHeader from '../SidebarHeader/SidebarHeader';
-import nav from './_nav';
+import navs from './_nav';
 import { BadgeDef, NavItemDef } from './NavItem';
 import { ReactNode } from 'react';
+
+let nav = navs as NavItemDef[];
 
 class Sidebar extends React.Component {
 
@@ -91,8 +93,7 @@ class Sidebar extends React.Component {
                         : navItem(item, idx);
 
         // nav list
-        const navList = (src: any): ReactNode => {
-            let items = src as NavItemDef[];
+        const navList = (items?: NavItemDef[]): ReactNode => {
             return items ? items.map((item, index) => navLink(item, index)) : '';
         };
 
@@ -103,7 +104,7 @@ class Sidebar extends React.Component {
                 <SidebarForm/>
                 <nav className="sidebar-nav">
                     <Nav>
-                        {navList(nav.items)}
+                        {navList(nav)}
                     </Nav>
                 </nav>
                 {/*<SidebarFooter/>*/}

@@ -8,8 +8,14 @@ export interface TableItem {
     summary: string;
     status: string;
 }
+export interface NewTaskForm {
+    summary: string;
+    message: string;
+    status: string;
+}
 
 export interface TasksState {
+    newTask: NewTaskForm;
     query: ItemListQuery;
     items: ItemListSyncModel<TableItem>;
 }
@@ -18,6 +24,11 @@ export const AREA_TASKS = 'tasks';
 
 const initialState: TasksState = {
     query: ItemListQueryDefault,
+    newTask : {
+        summary: '',
+        message: 'Add new task',
+        status: 'success'
+    },
     items: {
         data: [],
         permissions: {},
@@ -26,4 +37,3 @@ const initialState: TasksState = {
 };
 
 export const tasksReducer = StateSync().declareArea(AREA_TASKS, initialState);
-
