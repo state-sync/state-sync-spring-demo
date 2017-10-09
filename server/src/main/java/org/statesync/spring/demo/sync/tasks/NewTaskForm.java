@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class NewTaskForm {
-	public String summary;
-	public String message;
+	public String summary = "";
+	public String message = "";
 	public BootstrapStatus status = BootstrapStatus.success;
 
 	public void success() {
