@@ -1,3 +1,10 @@
+export interface ItemListPaginationItem {
+    page: number;
+    disabled: boolean;
+    type: string;
+    label: string;
+    badge: string;
+}
 /**
  * Interface to paginatin data provided by server
  */
@@ -22,6 +29,8 @@ export interface ItemListPaginationSyncModel {
      * Total count of pages
      */
     totalPages: number;
+
+    pages: ItemListPaginationItem[];
 }
 
 export const ItemListPaginationSyncModelDefault: ItemListPaginationSyncModel = {
@@ -29,5 +38,6 @@ export const ItemListPaginationSyncModelDefault: ItemListPaginationSyncModel = {
     size: 0,
     total: 0,
     currentPage: 0,
-    totalPages: 0
+    totalPages: 0,
+    pages: []
 };

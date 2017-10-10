@@ -11,6 +11,7 @@ import org.statesync.model.ListQuery;
 import org.statesync.spring.demo.entity.Task;
 import org.statesync.spring.demo.entity.TaskStatus;
 import org.statesync.spring.demo.service.repository.TaskRepository;
+import org.statesync.spring.demo.sync.tasks.TaskPermissions;
 
 @Service
 public class TaskService extends BaseService<String, Task, TaskRepository> {
@@ -30,6 +31,17 @@ public class TaskService extends BaseService<String, Task, TaskRepository> {
 			// final TextCriteria criteria =
 			// TextCriteria.forDefaultLanguage().matchingAny(query.searchKeywords());
 			return repository().findBySummaryStartsWith(query.search, pageable);
+		}
+	}
+
+	public TaskPermissions getPermissions(final Task task) {
+		switch (task.status) {
+			case New:
+				return TaskPermissions.ALL;
+			case InWork:
+				return TaskPermissions.EDIT;
+			default:
+				return TaskPermissions.READONLY;
 		}
 	}
 

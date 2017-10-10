@@ -44,7 +44,7 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 		final Task task = this.taskService.findOne(taskId.id);
 		if (task.status != TaskStatus.Closed)
 			permissions.add("edit");
-		model.editTask = new AnnotatedItem<>(new EditTaskForm(task), permissions);
+		model.editTask = new AnnotatedItem<>(new EditTaskForm(task), this.taskService.getPermissions(task));
 		return model;
 	}
 
@@ -53,8 +53,9 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 		model.query.validate("summary");
 		final Page<Task> page = this.taskService.find(model.query);
 		model.items = new AnnotatedList<>();
-		model.items.setData(page.getContent(), rec -> new TaskRow(rec));
-		model.items.pagination = new Pagination(page.getNumber(), page.getTotalPages(), page.getTotalElements());
+		model.items.setData(page.getContent(), rec -> new TaskRow(rec), (rec) -> this.taskService.getPermissions(rec));
+		model.items.permissions = new TaskListPermissions();
+		model.items.pagination = new Pagination(page.getNumber(), page.getTotalPages(), page.getTotalElements(), 10);
 		return model;
 	}
 

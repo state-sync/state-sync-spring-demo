@@ -1,13 +1,14 @@
 import { StateSync } from '@state-sync/js-client';
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Button, FormGroup, Label, Card, CardBlock, CardFooter, CardHeader, Input, Pagination, PaginationLink, Table } from 'reactstrap';
+import { Button, FormGroup, Label, Card, CardBlock, CardFooter, CardHeader, Input, Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
 import { ColSortIcon } from '../../components/Table/ColSortIcon';
 import { State } from '../../store/index';
 import { AREA_TASKS, TasksState } from '../../store/tasks';
 import { SyncStateBind } from '../../utils/bind';
 import { SetSort } from '../../models/ItemListQuery';
 import { Link } from 'react-router-dom';
+import { SyntheticEvent } from 'react';
 
 const area = StateSync().area(AREA_TASKS);
 
@@ -19,6 +20,7 @@ interface DispatchFromProps {
     bindSearch: React.ChangeEventHandler<HTMLInputElement>;
     bindNewTaskSummary: React.ChangeEventHandler<HTMLInputElement>;
     createTask: React.EventHandler<any>;
+    changePage: (page: number) => (e: SyntheticEvent<any>) => any;
 }
 
 interface CompProps extends StateFromProps, DispatchFromProps {
@@ -34,7 +36,11 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
     return {
         bindSearch: SyncStateBind.bind(area, '/query/search'),
         bindNewTaskSummary: SyncStateBind.bind(area, '/newTask/summary'),
-        createTask: SyncStateBind.signal(area, 'createTask')
+        createTask: SyncStateBind.signal(area, 'createTask'),
+        changePage: (page: number) => (e: SyntheticEvent<any>) => {
+            area.actionReplace('/query/page', page);
+            e.preventDefault();
+        }
     };
 };
 
@@ -49,7 +55,7 @@ class Comp extends React.Component<CompProps> {
     }
 
     render() {
-        const {tasks, bindSearch, bindNewTaskSummary, createTask} = this.props;
+        const {tasks, bindSearch, bindNewTaskSummary, createTask, changePage} = this.props;
         const query = tasks.query;
         const newTask = tasks.newTask;
         const sort = (col: string) => (e: React.MouseEvent<HTMLElement>): void => {
@@ -63,11 +69,19 @@ class Comp extends React.Component<CompProps> {
                         <td>{data.id}</td>
                         <td>{data.summary}</td>
                         <td>{data.status}</td>
-                        <td><Link to={'/task/edit/' + data.id}><i className="fa fa-edit"/></Link></td>
+                        <td><Link style={{display: item.permissions.edit ? 'display' : 'none'}} to={'/task/edit/' + data.id}><i className="fa fa-edit"/></Link></td>
                     </tr>
                 );
             }
         );
+
+        let pagination = tasks.items.pagination.pages.map((page, index: number) => (
+            <PaginationItem disabled={page.disabled} active={tasks.items.pagination.currentPage === page.page}>
+                <PaginationLink previous={page.type === 'prev'} next={page.type === 'next'} onClick={changePage(page.page)} href="#">
+                    {page.label}
+                </PaginationLink>
+            </PaginationItem>
+        ));
 
         return (
             <div className="container-fluid">
@@ -106,12 +120,10 @@ class Comp extends React.Component<CompProps> {
                                         {rows}
                                         </tbody>
                                     </Table>
-                                </CardBlock>
-                                <CardFooter>
-                                    <Pagination>
-                                        <PaginationLink>#</PaginationLink>
+                                    <Pagination size="sm">
+                                        {pagination}
                                     </Pagination>
-                                </CardFooter>
+                                </CardBlock>
                             </Card>
                         </div>
                         <div className="col-4">
@@ -134,7 +146,7 @@ class Comp extends React.Component<CompProps> {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-4">
+                        <div className="col-12">
                             <Card>
                                 <CardHeader>
                                     Area model

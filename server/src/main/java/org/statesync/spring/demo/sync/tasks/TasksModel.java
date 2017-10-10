@@ -10,6 +10,6 @@ import lombok.Data;
 public class TasksModel {
 	public ListQuery query = new ListQuery();
 	public NewTaskForm newTask = new NewTaskForm();
-	public AnnotatedItem<EditTaskForm> editTask;
-	public AnnotatedList<TaskRow> items = new AnnotatedList<>();
+	public AnnotatedItem<EditTaskForm, TaskPermissions> editTask;
+	public AnnotatedList<TaskRow, TaskPermissions, TaskListPermissions> items = new AnnotatedList<>();
 }

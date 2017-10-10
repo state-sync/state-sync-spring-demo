@@ -92,22 +92,24 @@ class Comp extends React.Component<CompProps> {
                                             <Label htmlFor="name">Summary</Label>
                                             <Input type="text" value={form.summary} placeholder="Summary" onChange={bindSummary}/>
                                         </FormGroup>
-                                        <FormGroup>
-                                            <Label>
-                                                <Input type="radio" value="New" checked={form.status === 'New'} onChange={bindStatus}/>
-                                                {' '}
-                                                New
-                                            </Label>
-                                            <Label>
-                                                <Input type="radio" value="InWork" checked={form.status === 'InWork'} onChange={bindStatus}/>
-                                                {' '}
-                                                InWork
-                                            </Label>
-                                            <Label>
-                                                <Input type="radio" value="Closed" checked={form.status === 'Closed'} onChange={bindStatus}/>
-                                                {' '}
-                                                Closed
-                                            </Label>
+                                        <FormGroup tag="fieldset">
+                                            <FormGroup check={true}>
+                                                <Label check={true}>
+                                                    <Input type="radio" value="New" checked={form.status === 'New'} onChange={bindStatus}/>
+                                                    {' '}
+                                                    New
+                                                </Label>
+                                                <Label check={true}>
+                                                    <Input type="radio" value="InWork" checked={form.status === 'InWork'} onChange={bindStatus}/>
+                                                    {' '}
+                                                    InWork
+                                                </Label>
+                                                <Label check={true}>
+                                                    <Input type="radio" value="Closed" checked={form.status === 'Closed'} onChange={bindStatus}/>
+                                                    {' '}
+                                                    Closed
+                                                </Label>
+                                            </FormGroup>
                                         </FormGroup>
                                     </CardBlock>
                                     <CardFooter>
