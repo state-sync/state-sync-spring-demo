@@ -1,15 +1,21 @@
 package org.statesync.spring.demo.sync.tasks;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.statesync.SyncAreaUser;
+import org.statesync.model.AnnotatedItem;
 import org.statesync.model.AnnotatedList;
+import org.statesync.model.ItemRequest;
 import org.statesync.model.Pagination;
 import org.statesync.spring.SpringSyncArea;
 import org.statesync.spring.SyncAreaService;
 import org.statesync.spring.SyncSignal;
 import org.statesync.spring.demo.entity.Task;
+import org.statesync.spring.demo.entity.TaskStatus;
 import org.statesync.spring.demo.service.TaskService;
 
 @SyncAreaService(id = "tasks", model = TasksModel.class, clientPush = { "/query", "/newTask" })
@@ -32,6 +38,16 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 		return model;
 	}
 
+	@SyncSignal(name = "editTask")
+	public TasksModel editTask(final TasksModel model, final SyncAreaUser<TasksModel> user, final ItemRequest taskId) {
+		final Set<String> permissions = new HashSet<>();
+		final Task task = this.taskService.findOne(taskId.id);
+		if (task.status != TaskStatus.Closed)
+			permissions.add("edit");
+		model.editTask = new AnnotatedItem<>(new EditTaskForm(task), permissions);
+		return model;
+	}
+
 	@Override
 	protected TasksModel process(final TasksModel model, final SyncAreaUser<TasksModel> user) {
 		model.query.validate("summary");
@@ -39,6 +55,14 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 		model.items = new AnnotatedList<>();
 		model.items.setData(page.getContent(), rec -> new TaskRow(rec));
 		model.items.pagination = new Pagination(page.getNumber(), page.getTotalPages(), page.getTotalElements());
+		return model;
+	}
+
+	@SyncSignal(name = "saveTask")
+	public TasksModel saveTask(final TasksModel model, final SyncAreaUser<TasksModel> user) {
+		final Task task = model.editTask.data.toTask();
+		this.taskService.save(task);
+		model.editTask = null;
 		return model;
 	}
 

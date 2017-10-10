@@ -9,6 +9,7 @@ import Footer from '../components/Footer/Footer';
 
 import Dashboard from '../views/Dashboard/Dashboard';
 import TasksComponent from '../views/Tasks/TasksComponent';
+import TasksEditComponent from '../views/Tasks/TasksEditComponent';
 
 class Full extends React.Component {
     render() {
@@ -22,7 +23,8 @@ class Full extends React.Component {
                         <Container fluid={true}>
                             <Switch>
                                 <Route path="/dashboard" component={Dashboard}/>
-                                <Route path="/tasks" component={TasksComponent}/>
+                                <Route path="/task/list" component={TasksComponent}/>
+                                <Route path="/task/edit/:taskId" component={TasksEditComponent}/>
                                 <Redirect from="/" to="/dashboard"/>
                             </Switch>
                         </Container>

@@ -10,7 +10,7 @@ export default [
     },
     {
         name: 'Tasks',
-        url: '/tasks',
+        url: '/task/list',
         icon: 'icon-list',
         badge: {
             variant: 'warning',

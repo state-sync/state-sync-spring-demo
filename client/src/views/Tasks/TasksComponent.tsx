@@ -7,6 +7,7 @@ import { State } from '../../store/index';
 import { AREA_TASKS, TasksState } from '../../store/tasks';
 import { SyncStateBind } from '../../utils/bind';
 import { SetSort } from '../../models/ItemListQuery';
+import { Link } from 'react-router-dom';
 
 const area = StateSync().area(AREA_TASKS);
 
@@ -38,6 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
 };
 
 class Comp extends React.Component<CompProps> {
+
     componentDidMount() {
         area.subscribe();
     }
@@ -61,6 +63,7 @@ class Comp extends React.Component<CompProps> {
                         <td>{data.id}</td>
                         <td>{data.summary}</td>
                         <td>{data.status}</td>
+                        <td><Link to={'/task/edit/' + data.id}><i className="fa fa-edit"/></Link></td>
                     </tr>
                 );
             }
@@ -96,6 +99,7 @@ class Comp extends React.Component<CompProps> {
                                                 status
                                                 <ColSortIcon query={query} forId="status"/>
                                             </th>
+                                            <th>&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -147,10 +151,6 @@ class Comp extends React.Component<CompProps> {
     }
 }
 
-const TasksComponent
-    = connect
-    < StateFromProps, DispatchFromProps
->
-(mapStateToProps, mapDispatchToProps)(Comp);
+const TasksComponent = connect<StateFromProps, DispatchFromProps>(mapStateToProps, mapDispatchToProps)(Comp);
 
 export default TasksComponent;
