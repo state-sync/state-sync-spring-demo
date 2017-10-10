@@ -6,6 +6,7 @@ import { State } from '../../store/index';
 import { AREA_TASKS, TasksState } from '../../store/tasks';
 import { SyncStateBind } from '../../utils/bind';
 import { History, Location, Match, Routed, RoutedHistory, RoutedLocation, RoutedMatch } from '../../utils/routed';
+import { SyntheticEvent } from "react";
 
 const area = StateSync().area(AREA_TASKS);
 
@@ -20,7 +21,6 @@ interface StateFromProps {
 interface DispatchFromProps {
     bindSummary: React.ChangeEventHandler<HTMLInputElement>;
     bindStatus: React.ChangeEventHandler<HTMLInputElement>;
-    saveTask: React.EventHandler<any>;
 }
 
 interface CompProps extends StateFromProps, DispatchFromProps {
@@ -36,7 +36,6 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
     return {
         bindSummary: SyncStateBind.bind(area, '/editTask/data/summary'),
         bindStatus: SyncStateBind.bind(area, '/editTask/data/status'),
-        saveTask: SyncStateBind.signal(area, 'saveTask')
     };
 };
 
@@ -66,18 +65,23 @@ class Comp extends React.Component<CompProps> {
     }
 
     render() {
-        const {tasks, bindSummary, bindStatus, saveTask} = this.props;
+        const {tasks, bindSummary, bindStatus} = this.props;
         if (!tasks.editTask) {
             return (<span>loading...</span>);
         }
         const form = tasks.editTask.data;
-
+        const saveTask = (e: SyntheticEvent<any>) => {
+            e.preventDefault();
+            area.signal('saveTask').then(() => {
+                this.history.push('/task/list');
+            });
+        };
         return (
             <div className="container-fluid">
                 <br/>
                 <div className="animated fadeIn">
                     <div className="row">
-                        <div className="col-4">
+                        <div className="col-12">
                             <form onSubmit={saveTask}>
                                 <Card>
                                     <CardHeader>
@@ -88,33 +92,33 @@ class Comp extends React.Component<CompProps> {
                                             <Label htmlFor="name">Summary</Label>
                                             <Input type="text" value={form.summary} placeholder="Summary" onChange={bindSummary}/>
                                         </FormGroup>
-                                        <FormGroup tag="fieldset">
+                                        <FormGroup>
                                             <Label>
-                                                <Input type="radio" checked={form.status === 'New'} onChange={bindStatus}/>
+                                                <Input type="radio" value="New" checked={form.status === 'New'} onChange={bindStatus}/>
                                                 {' '}
                                                 New
                                             </Label>
                                             <Label>
-                                                <Input type="radio" checked={form.status === 'InWork'} onChange={bindStatus}/>
+                                                <Input type="radio" value="InWork" checked={form.status === 'InWork'} onChange={bindStatus}/>
                                                 {' '}
                                                 InWork
                                             </Label>
                                             <Label>
-                                                <Input type="radio" checked={form.status === 'Closed'} onChange={bindStatus}/>
+                                                <Input type="radio" value="Closed" checked={form.status === 'Closed'} onChange={bindStatus}/>
                                                 {' '}
                                                 Closed
                                             </Label>
                                         </FormGroup>
                                     </CardBlock>
                                     <CardFooter>
-                                        <Button type="submit" onClick={saveTask}>Create</Button>
+                                        <Button type="submit" onClick={saveTask}>Save</Button>
                                     </CardFooter>
                                 </Card>
                             </form>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-4">
+                        <div className="col-12">
                             <Card>
                                 <CardHeader>
                                     Area model

@@ -7,9 +7,12 @@ export class SyncStateBind {
         return (e: React.ChangeEvent<HTMLInputElement>) => area.actionReplace(path, e.target.value);
     }
 
-    static signal(area: ISyncArea, signal: string): any {
+    static signal(area: ISyncArea, signal: string, then?: any): any {
         return (e: SyntheticEvent<any>) => {
-            area.signal(signal, {});
+            const promise = area.signal(signal, {});
+            if (then) {
+                promise.then((e) => then(e));
+            }
             e.preventDefault();
         };
     }
