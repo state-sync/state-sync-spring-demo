@@ -37,10 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch<State>): DispatchFromProps => {
         bindSearch: SyncStateBind.bind(area, '/query/search'),
         bindNewTaskSummary: SyncStateBind.bind(area, '/newTask/summary'),
         createTask: SyncStateBind.signal(area, 'createTask'),
-        changePage: (page: number) => (e: SyntheticEvent<any>) => {
-            area.actionReplace('/query/page', page);
-            e.preventDefault();
-        }
+        changePage: (page: number) => SyncStateBind.bind(area, '/query/page', page)
     };
 };
 

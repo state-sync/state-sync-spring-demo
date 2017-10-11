@@ -50,3 +50,7 @@ const initialState: TasksState = {
 };
 
 export const tasksReducer = StateSync().declareArea(AREA_TASKS, initialState);
+
+export const TasksApi = {
+
+};
