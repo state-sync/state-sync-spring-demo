@@ -6,7 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.statesync.SyncAreaUser;
+import org.statesync.SyncAreaApi;
 import org.statesync.model.AnnotatedItem;
 import org.statesync.model.AnnotatedList;
 import org.statesync.model.ItemRequest;
@@ -31,7 +31,7 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 	}
 
 	@SyncSignal(name = "createTask")
-	public TasksModel createTask(final TasksModel model, final SyncAreaUser<TasksModel> user) {
+	public TasksModel createTask(final TasksModel model, final SyncAreaApi<TasksModel> user) {
 		// if (model.newTask.validate()) {
 		this.taskService.newTask(model.newTask.summary);
 		model.newTask.success();
@@ -39,7 +39,7 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 	}
 
 	@SyncSignal(name = "editTask")
-	public TasksModel editTask(final TasksModel model, final SyncAreaUser<TasksModel> user, final ItemRequest taskId) {
+	public TasksModel editTask(final TasksModel model, final SyncAreaApi<TasksModel> user, final ItemRequest taskId) {
 		final Set<String> permissions = new HashSet<>();
 		final Task task = this.taskService.findOne(taskId.id);
 		if (task.status != TaskStatus.Closed)
@@ -49,7 +49,7 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 	}
 
 	@Override
-	protected TasksModel process(final TasksModel model, final SyncAreaUser<TasksModel> user) {
+	protected TasksModel process(final TasksModel model, final SyncAreaApi<TasksModel> user) {
 		model.query.validate("summary");
 		final Page<Task> page = this.taskService.find(model.query);
 		model.items = new AnnotatedList<>();
@@ -60,7 +60,7 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 	}
 
 	@SyncSignal(name = "saveTask")
-	public TasksModel saveTask(final TasksModel model, final SyncAreaUser<TasksModel> user) {
+	public TasksModel saveTask(final TasksModel model, final SyncAreaApi<TasksModel> user) {
 		final Task task = model.editTask.data.toTask();
 		this.taskService.save(task);
 		model.editTask = null;
@@ -73,7 +73,6 @@ public class TasksSyncArea extends SpringSyncArea<TasksModel> {
 			if (this.generated < 400) {
 				this.generated++;
 				this.taskService.newTask();
-				this.getArea().syncAll();
 			}
 		} catch (final Exception e) {
 			e.printStackTrace();

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.scheduling.annotation.Scheduled;
-import org.statesync.SyncAreaUser;
+import org.statesync.SyncAreaApi;
 import org.statesync.spring.SpringSyncArea;
 import org.statesync.spring.SyncAreaService;
 
@@ -26,7 +26,7 @@ public class DashboardArea extends SpringSyncArea<DashboardModel> {
 	}
 
 	@Override
-	protected DashboardModel process(final DashboardModel model, final SyncAreaUser<DashboardModel> user) {
+	protected DashboardModel process(final DashboardModel model, final SyncAreaApi<DashboardModel> user) {
 		model.name = "My dashboard";
 		fillChart(model);
 		return model;
@@ -34,15 +34,6 @@ public class DashboardArea extends SpringSyncArea<DashboardModel> {
 
 	@Scheduled(fixedRate = 5000)
 	public void updateByTimer() {
-		try {
-			this.getArea().syncAll((model, user) -> {
-				if (model.settings.watch) {
-					fillChart(model);
-				}
-				return model;
-			});
-		} catch (final Exception e) {
-			e.printStackTrace();
-		}
+		//
 	}
 }
